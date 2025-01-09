@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+    <style>
+      /* Reset box-sizing, padding, and margin for consistency */
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      /* Basic body styles */
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f4f4f9;
+        text-align: center;
+        padding: 0;
+      }
+
+      /* Main section for the content */
+      .main-section {
+        margin-top: 3rem;
+        padding-bottom: 4rem; /* Give space for the floating button */
+      }
+
+      /* Header styling */
+      h1 {
+        font-size: 3rem;
+        color: rgb(164, 84, 255);
+        margin: 1rem 0;
+      }
+
+      /* URL Section styling */
+      .urlSection {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      /* Styling for the input field */
+      .urlInput {
+        margin: 1rem 0;
+        padding: 0.5rem;
+        width: 80%;
+        max-width: 500px;
+        outline-color: rgb(150, 58, 254);
+        border-color: rgb(205, 162, 255);
+        border-radius: 5px;
+        font-size: medium;
+        color: rgb(84, 149, 255);
+        border: 1px solid #ccc;
+      }
+
+      /* Submit button styling */
+      .submitButton {
+        background-color: rgb(164, 84, 255);
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 20px;
+        color: aliceblue;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+      }
+
+      .submitButton:hover {
+        background-color: rgb(128, 63, 204);
+      }
+
+      /* Message for status or error */
+      .statusMessage {
+        color: red;
+        font-size: 1rem;
+        margin-top: 1rem;
+      }
+
+      /* Styling for generated URL */
+      .generatedUrl {
+        margin-top: 2rem;
+        font-size: 1.2rem;
+        color: #333;
+      }
+
+      .generatedUrl a {
+        color: rgb(84, 149, 255);
+        text-decoration: none;
+      }
+
+      .generatedUrl a:hover {
+        text-decoration: underline;
+      }
+
+      /* Floating button for Analytics page */
+      .analyticsButton {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: rgb(164, 84, 255);
+        padding: 1rem 1.5rem;
+        border-radius: 50px;
+        color: white;
+        font-size: 1rem;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .analyticsButton:hover {
+        background-color: rgb(128, 63, 204);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Responsive design for smaller screens */
+      @media screen and (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        .urlInput {
+          width: 90%;
+        }
+
+        .submitButton {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-section">
+      <h1>URL Shortener</h1>
+      <div class="urlSection">
+        <form action="/url" method="POST">
+          <label for="url"><b>Type or Paste Your Original URL</b></label>
+          <br />
+          <input
+            id="url"
+            class="urlInput"
+            type="text"
+            name="url"
+            placeholder="https://example.com"
+          />
+          <br />
+          <button class="submitButton" type="submit">Generate URL</button>
+          <br />
+          <% if (locals.status) { %>
+          <p class="statusMessage"><%= status %></p>
+          <% } %>
+        </form>
+      </div>
+
+      <% if (locals.id) { %>
+      <div class="generatedUrl">
+        <p>
+          Your Generated URL:
+          <a href="<%=localUrlIP%>/url/<%= id %>" target="_blank"
+            ><%=localUrlIP%>/url/<%= id %></a
+          >
+        </p>
+      </div>
+      <% } %>
+    </div>
+
+    <!-- Floating Analytics Button -->
+    <a href="<%=localUrlIP%>/analytics" class="analyticsButton"
+      >Check Analytics</a
+    >
+  </body>
+</html>

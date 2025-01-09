@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Upload</title>
+    <style>
+      /* Basic Reset */
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f4f4f9;
+      }
+
+      /* Form Container */
+      .upload-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      /* Title Styling */
+      h1 {
+        color: rgb(164, 84, 255);
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      /* Button Styling */
+      .upload-btn,
+      .submit-btn {
+        background-color: rgb(164, 84, 255);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        margin-top: 10px;
+      }
+
+      .upload-btn:hover,
+      .submit-btn:hover {
+        background-color: rgb(132, 68, 204);
+      }
+
+      /* File input (hidden) */
+      input[type="file"] {
+        display: none;
+      }
+
+      /* File input label */
+      .file-label {
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 14px;
+        color: rgb(164, 84, 255);
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      /* Preview Image Section */
+      .image-preview {
+        margin-top: 20px;
+        max-width: 100%;
+        max-height: 200px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        display: none;
+      }
+
+      .image-preview.show {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="upload-container">
+      <h1>Upload Your Image</h1>
+      <form
+        id="imageUploadForm"
+        action="/upload"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <!-- Image Upload Button -->
+        <label class="upload-btn" for="imageUpload">Choose Image</label>
+        <input
+          type="file"
+          id="imageUpload"
+          accept="image/*"
+          onchange="previewImage()"
+          name="profile"
+        />
+
+        <!-- File Name Display -->
+        <div id="fileName" style="margin-top: 10px"></div>
+
+        <!-- File Input Label -->
+        <label class="file-label" for="imageUpload"
+          >Click to select an image</label
+        >
+        <br />
+
+        <!-- Image Preview Section -->
+        <img id="preview" class="image-preview" alt="Image Preview" />
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn">Upload Image</button>
+      </form>
+    </div>
+
+    <script>
+      // Function to preview the image
+      function previewImage() {
+        const fileInput = document.getElementById("imageUpload");
+        const preview = document.getElementById("preview");
+        const fileName = document.getElementById("fileName");
+
+        const file = fileInput.files[0];
+        if (file) {
+          // Display image preview
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.classList.add("show");
+          };
+          reader.readAsDataURL(file);
+
+          // Show the file name
+          fileName.textContent = `Selected file: ${file.name}`;
+        }
+      }
+    </script>
+  </body>
+</html>

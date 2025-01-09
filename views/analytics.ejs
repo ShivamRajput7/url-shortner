@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analytics</title>
+    <style>
+      /* Reset box-sizing, padding, and margin for consistency */
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      /* Basic body styles */
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f4f4f9;
+        text-align: center;
+      }
+
+      /* Main section for the content */
+      .main-section {
+        margin-top: 2rem;
+        padding-bottom: 4rem; /* Space for the floating button */
+      }
+
+      /* Header styling */
+      h1 {
+        font-size: 2.5rem;
+        color: rgb(164, 84, 255);
+        margin: 1rem 0;
+      }
+
+      /* Responsive Table Container */
+      .table-container {
+        width: 100%;
+        overflow-x: auto; /* Enables horizontal scrolling on smaller screens */
+      }
+
+      /* Table styling for Analytics */
+      table {
+        width: 90%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      table th,
+      table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        white-space: nowrap; /* Prevents text wrapping */
+      }
+
+      table th {
+        background-color: rgb(164, 84, 255);
+        color: white;
+      }
+
+      table tr:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Floating button for Main Screen */
+      .mainScreenButton {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: rgb(164, 84, 255);
+        padding: 1rem 1.5rem;
+        border-radius: 50px;
+        color: white;
+        font-size: 1rem;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .mainScreenButton:hover {
+        background-color: rgb(128, 63, 204);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Responsive design for smaller screens */
+      @media screen and (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        table {
+          width: 100%;
+        }
+
+        table th,
+        table td {
+          padding: 8px;
+        }
+
+        .mainScreenButton {
+          padding: 0.8rem 1.2rem;
+          font-size: 0.9rem;
+        }
+      }
+
+      /* Further adjustments for very small screens (e.g., portrait mobile) */
+      @media screen and (max-width: 480px) {
+        h1 {
+          font-size: 1.8rem;
+        }
+
+        table th,
+        table td {
+          font-size: 0.9rem;
+        }
+
+        .mainScreenButton {
+          padding: 0.7rem 1rem;
+          font-size: 0.85rem;
+        }
+      }
+
+      a {
+        text-decoration: none;
+        color: rgb(164, 84, 255);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-section">
+      <h1>Analytics Page</h1>
+
+      <% if (urls.length) { %>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>SR no.</th>
+
+              <% if (userRole=="1") { %>
+              <th>Created By</th>
+              <% } %>
+
+              <th>Original URL</th>
+              <th>Short URL</th>
+              <th>Total Visits</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% urls.forEach((url, index) => { %>
+            <tr>
+              <td><%= index + 1 %></td>
+
+              <% if (userRole=="1") { %>
+              <!-- <td><%= url.createdBy?.name %></td> -->
+              <td>
+                <% if (url.createdBy== null) { %> <%= "Unknown User" %> <% }
+                else{ %> <%= url.createdBy.name %> <% } %>
+              </td>
+              <% } %>
+              <td><%= url.redirectUrl %></td>
+              <td>
+                <a
+                  href="<%= localUrlIP %>/url/<%=url.shortUrl%>"
+                  target="_blank"
+                  ><%= localUrlIP %>/<%=url.shortUrl%></a
+                >
+              </td>
+              <td><%= url.visitHistory.length %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <% } else { %>
+      <h2>You Have not Created any Urls yet</h2>
+      Generate Url from here :
+      <a href="<%= localUrlIP %>">Generate Short URL</a>
+      <% } %>
+    </div>
+
+    <!-- Floating Button Back to Main Screen -->
+    <a href="<%= localUrlIP %>" class="mainScreenButton">Generate Short URL</a>
+  </body>
+</html>

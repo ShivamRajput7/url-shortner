@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 Not Found</title>
+    <style>
+      /* General Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Body and Background */
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f7fc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .error-box {
+        background-color: white;
+        padding: 40px 60px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 120px;
+        font-weight: bold;
+        color: rgb(164, 84, 255);
+        margin-bottom: 20px;
+      }
+
+      .message {
+        font-size: 18px;
+        color: #666;
+        margin-bottom: 30px;
+      }
+
+      .home-button {
+        background-color: rgb(164, 84, 255);
+        color: white;
+        font-size: 16px;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .home-button:hover {
+        background-color: rgba(164, 84, 255, 0.8);
+      }
+
+      .home-button:focus {
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="error-box">
+        <h1>404</h1>
+        <p class="message">Oops! The page you're looking for doesn't exist.</p>
+        <button onclick="window.location.href='/'" class="home-button">
+          Go to Homepage
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

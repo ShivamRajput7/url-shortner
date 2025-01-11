@@ -42,4 +42,4 @@ This project is a URL shortening service. It allows users to input a long URL an
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. 
